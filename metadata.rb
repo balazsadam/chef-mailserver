@@ -1,0 +1,10 @@
+name 'mailserver'
+maintainer 'Adam BALAZS'
+maintainer_email 'github@balazsasd.net'
+license 'all_rights'
+description 'Installs/Configures Fully functioned mail server'
+long_description 'Installs/Configures postfix, nginx, php-fpm'
+version '0.1.0'
+
+depends 'yum-centos', '~> 0.4.12'
+depends 'selinux'

@@ -1,0 +1,34 @@
+---
+driver:
+  name: vagrant
+  customize:
+    nictype1: "virtio"
+    memory: 1024
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.8.1
+  environments_path: '.chef/environments'
+  data_bags_path: '.chef/data_bags'
+  nodes_path: '.chef/nodes'
+  roles_path: '.chef/roles'
+
+platforms:
+  - name: bento/centos-6.7
+
+suites:
+  - name: default
+    driver:
+      network:
+        - ["forwarded_port", {guest: 80, host: 80}]
+        - ["forwarded_port", {guest: 443, host: 443}]
+        - ["forwarded_port", {guest: 25, host: 25}]
+        - ["forwarded_port", {guest: 465, host: 465}]
+        - ["forwarded_port", {guest: 993, host: 993}]
+        - ["forwarded_port", {guest: 995, host: 995}]
+      vm_hostname: server1.domain.com
+    driver_config:
+      hostname: server1
+    run_list:
+      - recipe[mailserver::default]
+    attributes:
